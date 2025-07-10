@@ -1,0 +1,25 @@
+{
+  "name": "ambient-anki",
+  "version": "1.0.0",
+  "description": "Chrome extension for capturing web pages as Anki flashcards using AI",
+  "main": "src/background/service-worker.js",
+  "scripts": {
+    "dev": "npm run clean && npm run copy-libs",
+    "clean": "rm -rf dist",
+    "copy-libs": "mkdir -p dist/lib && cp node_modules/@mozilla/readability/Readability.js dist/lib/",
+    "build": "npm run clean && npm run copy-libs && cp -r src/* dist/ && cp manifest.json dist/ && cp -r icons dist/",
+    "zip": "npm run build && cd dist && zip -r ../ambient-anki.zip *"
+  },
+  "keywords": [
+    "anki",
+    "flashcards",
+    "chrome-extension",
+    "ai",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@mozilla/readability": "^0.5.0"
+  }
+}

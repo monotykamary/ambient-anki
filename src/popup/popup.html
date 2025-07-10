@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambient Anki</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ambient Anki</h1>
+      <div class="status" id="status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Checking connection...</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Quick Capture Section -->
+      <section class="capture-section">
+        <button id="captureBtn" class="capture-btn primary-btn">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
+            <path d="M2 17L12 22L22 17"></path>
+            <path d="M2 12L12 17L22 12"></path>
+          </svg>
+          Capture Current Page
+        </button>
+        
+        <div id="captureStatus" class="capture-status hidden">
+          <div class="spinner"></div>
+          <span id="captureStatusText">Processing...</span>
+        </div>
+      </section>
+
+      <!-- Quick Settings -->
+      <section class="quick-settings">
+        <div class="setting-item">
+          <label class="toggle">
+            <input type="checkbox" id="autoCapture">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Auto Capture</span>
+          </label>
+        </div>
+        
+        <div class="setting-item">
+          <label for="deckSelect">Target Deck:</label>
+          <select id="deckSelect" class="select">
+            <option>Loading decks...</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Recent Captures -->
+      <section class="recent-captures">
+        <h2>Recent Captures</h2>
+        <div id="recentList" class="recent-list">
+          <p class="empty-state">No recent captures</p>
+        </div>
+      </section>
+
+      <!-- Flashcard Preview Modal -->
+      <div id="previewModal" class="modal hidden">
+        <div class="modal-content">
+          <h3>Generated Flashcards</h3>
+          <div id="flashcardList" class="flashcard-list"></div>
+          <div class="modal-actions">
+            <button id="cancelBtn" class="secondary-btn">Cancel</button>
+            <button id="addToAnkiBtn" class="primary-btn">Add to Anki</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="#" id="openOptions" class="footer-link">
+        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"></path>
+        </svg>
+        Settings
+      </a>
+      <span class="footer-separator">•</span>
+      <a href="#" id="viewHistory" class="footer-link">
+        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+        </svg>
+        History
+      </a>
+    </footer>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambient Anki - Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ambient Anki Settings</h1>
+      <div id="saveStatus" class="save-status hidden">Settings saved!</div>
+    </header>
+
+    <main>
+      <!-- API Configuration -->
+      <section class="settings-section">
+        <h2>AI Configuration</h2>
+        
+        <div class="form-group">
+          <label for="apiProvider">AI Provider</label>
+          <select id="apiProvider" class="form-control">
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+            <option value="custom">Custom API</option>
+          </select>
+        </div>
+
+        <div id="openaiSettings" class="provider-settings">
+          <div class="form-group">
+            <label for="openaiKey">OpenAI API Key</label>
+            <input type="password" id="openaiKey" class="form-control" placeholder="sk-...">
+            <small class="form-help">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a></small>
+          </div>
+          
+          <div class="form-group">
+            <label for="openaiModel">Model</label>
+            <select id="openaiModel" class="form-control">
+              <option value="gpt-4o-mini">GPT-4o Mini (Fast, Cheapest)</option>
+              <option value="gpt-4o">GPT-4o (Balanced)</option>
+              <option value="gpt-4.1-mini">GPT-4.1 Mini (Latest, Fast)</option>
+              <option value="gpt-4.1">GPT-4.1 (Latest, Best)</option>
+              <option value="o4-mini">o4 Mini (Fast Reasoning)</option>
+              <option value="o3">o3 (Advanced Reasoning)</option>
+              <option value="o3-pro">o3 Pro (Deep Reasoning)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="anthropicSettings" class="provider-settings hidden">
+          <div class="form-group">
+            <label for="anthropicKey">Anthropic API Key</label>
+            <input type="password" id="anthropicKey" class="form-control" placeholder="sk-ant-...">
+            <small class="form-help">Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a></small>
+          </div>
+          
+          <div class="form-group">
+            <label for="anthropicModel">Model</label>
+            <select id="anthropicModel" class="form-control">
+              <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku (Fast, Cheap)</option>
+              <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet (Balanced)</option>
+              <option value="claude-3-7-sonnet-20250219">Claude 3.7 Sonnet (Advanced)</option>
+              <option value="claude-sonnet-4-20250514">Claude 4 Sonnet (High Performance)</option>
+              <option value="claude-opus-4-20250514">Claude 4 Opus (Best Coding)</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="customSettings" class="provider-settings hidden">
+          <div class="form-group">
+            <label for="customEndpoint">API Endpoint</label>
+            <input type="url" id="customEndpoint" class="form-control" placeholder="https://api.example.com/generate">
+          </div>
+          
+          <div class="form-group">
+            <label for="customKey">API Key</label>
+            <input type="password" id="customKey" class="form-control" placeholder="Your API key">
+          </div>
+        </div>
+      </section>
+
+      <!-- Anki Configuration -->
+      <section class="settings-section">
+        <h2>Anki Configuration</h2>
+        
+        <div class="form-group">
+          <label for="ankiDeck">Default Deck</label>
+          <input type="text" id="ankiDeck" class="form-control" placeholder="Ambient Anki">
+          <small class="form-help">The deck where flashcards will be added</small>
+        </div>
+
+        <div class="form-group">
+          <button id="testAnkiBtn" class="btn btn-secondary">Test Anki Connection</button>
+          <span id="ankiStatus" class="status-text"></span>
+        </div>
+      </section>
+
+      <!-- Flashcard Settings -->
+      <section class="settings-section">
+        <h2>Flashcard Settings</h2>
+        
+        <div class="form-group">
+          <label for="maxPerPage">Maximum Cards per Page</label>
+          <input type="number" id="maxPerPage" class="form-control" min="1" max="20" value="5">
+          <small class="form-help">Number of flashcards to generate from each page</small>
+        </div>
+
+        <div class="form-group">
+          <label for="difficulty">Question Difficulty</label>
+          <select id="difficulty" class="form-control">
+            <option value="easy">Easy - Basic facts and definitions</option>
+            <option value="medium">Medium - Concepts and understanding</option>
+            <option value="hard">Hard - Analysis and critical thinking</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="includeSource">
+            <span>Include source URL in answers</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Automatic Capture -->
+      <section class="settings-section">
+        <h2>Automatic Capture</h2>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="autoCaptureEnabled">
+            <span>Enable automatic capture</span>
+          </label>
+        </div>
+
+        <div id="autoCaptureSettings" class="subsection">
+          <div class="form-group">
+            <label for="minDwellTime">Minimum Dwell Time (seconds)</label>
+            <input type="number" id="minDwellTime" class="form-control" min="10" max="300" value="30">
+            <small class="form-help">How long to stay on a page before capturing</small>
+          </div>
+
+          <div class="form-group">
+            <label>Domain Whitelist</label>
+            <div class="domain-list" id="whitelistContainer">
+              <div class="domain-input-group">
+                <input type="text" id="whitelistInput" class="form-control" placeholder="example.com">
+                <button id="addWhitelistBtn" class="btn btn-sm">Add</button>
+              </div>
+              <div id="whitelistItems" class="domain-items"></div>
+            </div>
+            <small class="form-help">Only capture from these domains (leave empty for all)</small>
+          </div>
+
+          <div class="form-group">
+            <label>Domain Blacklist</label>
+            <div class="domain-list" id="blacklistContainer">
+              <div class="domain-input-group">
+                <input type="text" id="blacklistInput" class="form-control" placeholder="example.com">
+                <button id="addBlacklistBtn" class="btn btn-sm">Add</button>
+              </div>
+              <div id="blacklistItems" class="domain-items"></div>
+            </div>
+            <small class="form-help">Never capture from these domains</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Management -->
+      <section class="settings-section">
+        <h2>Data Management</h2>
+        
+        <div class="form-group">
+          <button id="exportBtn" class="btn btn-secondary">Export Settings</button>
+          <button id="importBtn" class="btn btn-secondary">Import Settings</button>
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+
+        <div class="form-group">
+          <button id="clearHistoryBtn" class="btn btn-danger">Clear Capture History</button>
+          <small class="form-help">This will remove all capture history. Flashcards in Anki will not be affected.</small>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <button id="saveBtn" class="btn btn-primary">Save Settings</button>
+      <button id="resetBtn" class="btn btn-secondary">Reset to Defaults</button>
+    </footer>
+  </div>
+
+  <script src="options.js" type="module"></script>
+</body>
+</html>
