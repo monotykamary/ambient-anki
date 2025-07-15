@@ -158,6 +158,12 @@ npm run zip
 4. Push to the branch
 5. Open a Pull Request
 
+## Support
+
+If you find this extension helpful, consider buying me a coffee!
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/monotykamary)
+
 ## License
 
 MIT License - see LICENSE file for details
